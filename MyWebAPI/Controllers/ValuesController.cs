@@ -25,8 +25,9 @@ namespace MyWebAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]MouthModel value)
         {
+            return Json(value);
         }
 
         // PUT api/values/5

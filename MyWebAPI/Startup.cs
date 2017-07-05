@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyWebAPI
 {
@@ -29,6 +30,8 @@ namespace MyWebAPI
         {
             // Add framework services.
             services.AddMvc();
+            var connecttionstring = Configuration["ConnectionStrings:DB"];
+            services.AddDbContext<EmotionContext>(options => options.UseSqlServer(connecttionstring));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +39,6 @@ namespace MyWebAPI
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             app.UseMvc();
         }
     }
